@@ -327,10 +327,14 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     reply_to_message_id=row["source_message_id"],
                     parse_mode=ParseMode.HTML,
                 )
-            except Exception:
-                log.exception("Could not send turn notification")
-                await msg.reply_text("تعذر إرسال التنبيه؛ تحقق من صلاحيات البوت في القروب.")
-        return
+                except Exception as e:
+                log.exception(
+                    "Could not send turn notification: %s",
+                    type(e).__name__,
+                )
+                await msg.reply_text(
+                    f"فشل إرسال التنبيه ({type(e).__name__})."
+                return
 
     # Registration only by replying directly to the distribution's source message.
     if msg.reply_to_message and text:
