@@ -337,7 +337,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     parse_mode=ParseMode.HTML,
                 )
             except Exception:
-                log.exception("Could not send turn notification")
+                log.exception("Could not send turn notification (chat_id=%s, source_message_id=%s)", chat_id, row["source_message_id"])
                 await msg.reply_text("تعذر إرسال التنبيه؛ تحقق من صلاحيات البوت في القروب.")
         return
 
